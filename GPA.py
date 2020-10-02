@@ -77,7 +77,7 @@ class Ui_AnnaUniersityGPACalculater(object):
         self.label.setGeometry(QtCore.QRect(70, 330, 81, 16))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(250, 330, 47, 13))
+        self.label_2.setGeometry(QtCore.QRect(250, 330, 70, 25))
         self.label_2.setObjectName("label_2")
         AnnaUniersityGPACalculater.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(AnnaUniersityGPACalculater)
@@ -102,14 +102,56 @@ class Ui_AnnaUniersityGPACalculater(object):
         self.Subject5.setText(_translate("AnnaUniersityGPACalculater", "Subject 5"))
         self.Subject6.setText(_translate("AnnaUniersityGPACalculater", "Subject 6"))
         self.label.setText(_translate("AnnaUniersityGPACalculater", "Your Result"))
-        self.label_2.setText(_translate("AnnaUniersityGPACalculater", "TextLabel"))
+        self.label_2.setText(_translate("AnnaUniersityGPACalculater", ""))
+
+        self.comboBox.addItems(["O", "A+", "A", "B+", "B"])
+        self.comboBox_2.addItems(["O", "A+", "A", "B+", "B"])
+        self.comboBox_3.addItems(["O", "A+", "A", "B+", "B"])
+        self.comboBox_4.addItems(["O", "A+", "A", "B+", "B"])
+        self.comboBox_5.addItems(["O", "A+", "A", "B+", "B"])
+        self.comboBox_6.addItems(["O", "A+", "A", "B+", "B"])
+
+        self.spinBox.setMaximum(4)
+        self.spinBox.setMinimum(1)
+        self.spinBox_2.setMaximum(4)
+        self.spinBox_2.setMinimum(1)
+        self.spinBox_3.setMaximum(4)
+        self.spinBox_3.setMinimum(1)
+        self.spinBox_4.setMaximum(4)
+        self.spinBox_4.setMinimum(1)
+        self.spinBox_5.setMaximum(4)
+        self.spinBox_5.setMinimum(1)
+        self.spinBox_6.setMaximum(4)
+        self.spinBox_6.setMinimum(1)
+        self.pushButton.clicked.connect(calculateGPA)
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    AnnaUniersityGPACalculater = QtWidgets.QMainWindow()
-    ui = Ui_AnnaUniersityGPACalculater()
-    ui.setupUi(AnnaUniersityGPACalculater)
-    AnnaUniersityGPACalculater.show()
-    sys.exit(app.exec_())
+def calculateGPA():
+    ui.label_2.setText("9.8")
+    thisdict = {
+        "O": 10,
+        "A+": 9,
+        "A": 8,
+        "B+":7,
+        "B":6
+    }
+    Totalcredits = ui.spinBox.value() + ui.spinBox_2.value() + ui.spinBox_3.value() + ui.spinBox_4.value() + \
+                   ui.spinBox_5.value() + ui.spinBox_6.value()
+
+    GPA = (thisdict.get(ui.comboBox.currentText()) * ui.spinBox.value() +
+          thisdict.get(ui.comboBox_2.currentText()) * ui.spinBox_2.value() +
+            thisdict.get(ui.comboBox_3.currentText()) * ui.spinBox_3.value() +
+            thisdict.get(ui.comboBox_4.currentText()) * ui.spinBox_4.value() +
+          thisdict.get(ui.comboBox_5.currentText()) * ui.spinBox_5.value() +
+          thisdict.get(ui.comboBox_6.currentText()) * ui.spinBox_6.value()) / Totalcredits
+
+    ui.label_2.setText(str(GPA))
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+AnnaUniersityGPACalculater = QtWidgets.QMainWindow()
+ui = Ui_AnnaUniersityGPACalculater()
+ui.setupUi(AnnaUniersityGPACalculater)
+AnnaUniersityGPACalculater.show()
+sys.exit(app.exec_())
+
